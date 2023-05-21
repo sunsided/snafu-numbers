@@ -222,10 +222,10 @@ impl IntoSnafu for u128 {
             let digit = symbol[selector as usize];
             digits.push(digit);
 
-            self = self.div(5);
-            if self == 0 {
+            if self < 5 {
                 break;
             }
+            self = self.div(5);
         }
 
         String::from_iter(digits.into_iter().rev())
