@@ -123,7 +123,7 @@ pub trait FromSnafu {
     /// * `value` - The string value to convert from.
     ///
     /// ## Panics
-    /// Panics if the conversion failed. If you need to gracefully fail,
+    /// Panics if the conversion failed. If you need to fail gracefully,
     /// use [`TryFromSnafu`] instead.
     ///
     /// ## Example
