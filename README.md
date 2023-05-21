@@ -1,6 +1,6 @@
 # Special Numeral-Analogue Fuel Units
 
-A Rust crate and utility to deal with conversions of SNAFU values
+A Rust crate ~~and utility~~ to deal with conversions of SNAFU values
 from Advent of Code 2022, Day 25 ([here](https://adventofcode.com/2022/day/25)).
 The file [AOC-22-25.md](AOC-22-25.md) contains the full puzzle in case the
 website is unavailable.
