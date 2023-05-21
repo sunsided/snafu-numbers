@@ -5,6 +5,15 @@ from Advent of Code 2022, Day 25 ([here](https://adventofcode.com/2022/day/25)).
 The file [AOC-22-25.md](AOC-22-25.md) contains the full puzzle in case the
 website is unavailable.
 
+Example conversions from SNAFU:
+
+```rust
+use snafu_numbers::FromSnafu;
+assert_eq!(u32::from_snafu("1=-0-2"), 1747);
+assert_eq!(u32::from_snafu("20012"), 1257);
+assert_eq!(u32::from_snafu("1="), 3);
+```
+
 ## SNAFU numbers
 
 SNAFU numbers are a power-of-5 centric base-10 system written right to left.
