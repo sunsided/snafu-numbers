@@ -373,17 +373,17 @@ mod tests {
     fn highest_number() {
         assert_eq!(naive_num_bits(0), 1); // need 1 bit to store the number 0
 
-        assert_eq!(max_for_length(0), 2); // 2×1
+        assert_eq!(max_for_length(1), 2); // 2×1
         assert_eq!(naive_num_bits(2), 2);
         assert_eq!(num_bits_for_pos(0), 2);
         assert_eq!(num_bits_for_len(1), 2);
 
-        assert_eq!(max_for_length(1), 12); // 2×1 + 2×5
+        assert_eq!(max_for_length(2), 12); // 2×1 + 2×5
         assert_eq!(naive_num_bits(12), 4); // +2
         assert_eq!(num_bits_for_pos(1), 4);
         assert_eq!(num_bits_for_len(2), 4);
 
-        assert_eq!(max_for_length(2), 62); // 2×1 + 2×5 + 2×25
+        assert_eq!(max_for_length(3), 62); // 2×1 + 2×5 + 2×25
         assert_eq!(naive_num_bits(62), 6); // +2
         assert_eq!(num_bits_for_pos(2), 6);
 
@@ -395,19 +395,19 @@ mod tests {
 
         // i8 / u8 overflow here.
 
-        assert_eq!(max_for_length(3), 312); // 2×1 + 2×5 + 2×25 + 2×125
+        assert_eq!(max_for_length(4), 312); // 2×1 + 2×5 + 2×25 + 2×125
         assert_eq!(naive_num_bits(312), 9); // +3
         assert_eq!(num_bits_for_pos(3), 9);
 
-        assert_eq!(max_for_length(4), 1562);
+        assert_eq!(max_for_length(5), 1562);
         assert_eq!(naive_num_bits(1562), 11); // +2
         assert_eq!(num_bits_for_pos(4), 11);
 
-        assert_eq!(max_for_length(5), 7812);
+        assert_eq!(max_for_length(6), 7812);
         assert_eq!(naive_num_bits(7812), 13); // +2
         assert_eq!(num_bits_for_pos(5), 13);
 
-        assert_eq!(max_for_length(6), 39062);
+        assert_eq!(max_for_length(7), 39062);
         assert_eq!(naive_num_bits(39062), 16); // +3
         assert_eq!(num_bits_for_pos(6), 16);
 
@@ -419,31 +419,31 @@ mod tests {
 
         // i16 / u16 overflow here.
 
-        assert_eq!(max_for_length(7), 195312);
+        assert_eq!(max_for_length(8), 195312);
         assert_eq!(naive_num_bits(195312), 18); // +2
         assert_eq!(num_bits_for_pos(7), 18);
 
-        assert_eq!(max_for_length(8), 976562);
+        assert_eq!(max_for_length(9), 976562);
         assert_eq!(naive_num_bits(976562), 20); // +2
         assert_eq!(num_bits_for_pos(8), 20);
 
-        assert_eq!(max_for_length(9), 4882812);
+        assert_eq!(max_for_length(10), 4882812);
         assert_eq!(naive_num_bits(4882812), 23); // +3
         assert_eq!(num_bits_for_pos(9), 23);
 
-        assert_eq!(max_for_length(10), 24414062);
+        assert_eq!(max_for_length(11), 24414062);
         assert_eq!(naive_num_bits(24414062), 25); // +2
         assert_eq!(num_bits_for_pos(10), 25);
 
-        assert_eq!(max_for_length(11), 122070312);
+        assert_eq!(max_for_length(12), 122070312);
         assert_eq!(naive_num_bits(122070312), 27); // +2
         assert_eq!(num_bits_for_pos(11), 27);
 
-        assert_eq!(max_for_length(12), 610351562);
+        assert_eq!(max_for_length(13), 610351562);
         assert_eq!(naive_num_bits(610351562), 30); // +3
         assert_eq!(num_bits_for_pos(12), 30);
 
-        assert_eq!(max_for_length(13), 3051757812);
+        assert_eq!(max_for_length(14), 3051757812);
         assert_eq!(naive_num_bits(3051757812), 32); // +2
         assert_eq!(num_bits_for_pos(13), 32);
 
@@ -455,55 +455,55 @@ mod tests {
 
         // i32 / u32 overflow here.
 
-        assert_eq!(max_for_length(14), 15258789062);
+        assert_eq!(max_for_length(15), 15258789062);
         assert_eq!(naive_num_bits(15258789062), 34); // +2
         assert_eq!(num_bits_for_pos(14), 34);
 
-        assert_eq!(max_for_length(15), 76293945312);
+        assert_eq!(max_for_length(16), 76293945312);
         assert_eq!(naive_num_bits(76293945312), 37); // +3
         assert_eq!(num_bits_for_pos(15), 37);
 
-        assert_eq!(max_for_length(16), 381469726562);
+        assert_eq!(max_for_length(17), 381469726562);
         assert_eq!(naive_num_bits(381469726562), 39); // +2
         assert_eq!(num_bits_for_pos(16), 39);
 
-        assert_eq!(max_for_length(17), 1907348632812);
+        assert_eq!(max_for_length(18), 1907348632812);
         assert_eq!(naive_num_bits(1907348632812), 41); // +2
         assert_eq!(num_bits_for_pos(17), 41);
 
-        assert_eq!(max_for_length(18), 9536743164062);
+        assert_eq!(max_for_length(19), 9536743164062);
         assert_eq!(naive_num_bits(9536743164062), 44); // +3
         assert_eq!(num_bits_for_pos(18), 44);
 
-        assert_eq!(max_for_length(19), 47683715820312);
+        assert_eq!(max_for_length(20), 47683715820312);
         assert_eq!(naive_num_bits(47683715820312), 46); // +2
         assert_eq!(num_bits_for_pos(19), 46);
 
-        assert_eq!(max_for_length(20), 238418579101562);
+        assert_eq!(max_for_length(21), 238418579101562);
         assert_eq!(naive_num_bits(238418579101562), 48); // +2
         assert_eq!(num_bits_for_pos(20), 48);
 
-        assert_eq!(max_for_length(21), 1192092895507812);
+        assert_eq!(max_for_length(22), 1192092895507812);
         assert_eq!(naive_num_bits(1192092895507812), 51); // +3
         assert_eq!(num_bits_for_pos(21), 51);
 
-        assert_eq!(max_for_length(22), 5960464477539062);
+        assert_eq!(max_for_length(23), 5960464477539062);
         assert_eq!(naive_num_bits(5960464477539062), 53); // +2
         assert_eq!(num_bits_for_pos(22), 53);
 
-        assert_eq!(max_for_length(23), 29802322387695312);
+        assert_eq!(max_for_length(24), 29802322387695312);
         assert_eq!(naive_num_bits(29802322387695312), 55); // +2
         assert_eq!(num_bits_for_pos(23), 55);
 
-        assert_eq!(max_for_length(24), 149011611938476562);
+        assert_eq!(max_for_length(25), 149011611938476562);
         assert_eq!(naive_num_bits(149011611938476562), 58); // +3
         assert_eq!(num_bits_for_pos(24), 58);
 
-        assert_eq!(max_for_length(25), 745058059692382812);
+        assert_eq!(max_for_length(26), 745058059692382812);
         assert_eq!(naive_num_bits(745058059692382812), 60); // +2
         assert_eq!(num_bits_for_pos(25), 60);
 
-        assert_eq!(max_for_length(26), 3725290298461914062);
+        assert_eq!(max_for_length(27), 3725290298461914062);
         assert_eq!(naive_num_bits(3725290298461914062), 62); // +2
         assert_eq!(num_bits_for_pos(26), 62);
 
@@ -515,45 +515,45 @@ mod tests {
 
         // i64 / u64 overflow here.
 
-        assert_eq!(max_for_length(27), 18626451492309570312);
+        assert_eq!(max_for_length(28), 18626451492309570312);
         assert_eq!(naive_num_bits(18626451492309570312), 65); // +3
         assert_eq!(num_bits_for_pos(27), 65);
 
-        assert_eq!(max_for_length(28), 93132257461547851562);
+        assert_eq!(max_for_length(29), 93132257461547851562);
         assert_eq!(naive_num_bits(93132257461547851562), 67); // +2
         assert_eq!(num_bits_for_pos(28), 67);
 
-        assert_eq!(max_for_length(29), 465661287307739257812);
+        assert_eq!(max_for_length(30), 465661287307739257812);
         assert_eq!(naive_num_bits(465661287307739257812), 69); // +2
         assert_eq!(num_bits_for_pos(29), 69);
 
-        assert_eq!(max_for_length(30), 2328306436538696289062);
+        assert_eq!(max_for_length(31), 2328306436538696289062);
         assert_eq!(naive_num_bits(2328306436538696289062), 71); // +2 !! (not +3)
         assert_eq!(num_bits_for_pos(30), 71);
 
-        assert_eq!(max_for_length(31), 11641532182693481445312);
+        assert_eq!(max_for_length(32), 11641532182693481445312);
         assert_eq!(naive_num_bits(11641532182693481445312), 74); // +3
         assert_eq!(num_bits_for_pos(31), 74);
 
-        assert_eq!(max_for_length(32), 58207660913467407226562);
+        assert_eq!(max_for_length(33), 58207660913467407226562);
         assert_eq!(naive_num_bits(58207660913467407226562), 76); // +2
         assert_eq!(num_bits_for_pos(32), 76);
 
-        assert_eq!(max_for_length(33), 291038304567337036132812);
+        assert_eq!(max_for_length(34), 291038304567337036132812);
         assert_eq!(naive_num_bits(291038304567337036132812), 78); // +2
         assert_eq!(num_bits_for_pos(33), 78);
 
-        assert_eq!(max_for_length(34), 1455191522836685180664062);
+        assert_eq!(max_for_length(35), 1455191522836685180664062);
         assert_eq!(naive_num_bits(1455191522836685180664062), 81); // +3
         assert_eq!(num_bits_for_pos(34), 81);
 
-        assert_eq!(max_for_length(35), 7275957614183425903320312);
+        assert_eq!(max_for_length(36), 7275957614183425903320312);
         assert_eq!(naive_num_bits(7275957614183425903320312), 83); // +2
         assert_eq!(num_bits_for_pos(35), 83);
 
         // boundary of i128 / u128
 
-        assert_eq!(max_for_length(54), 138777878078144567552953958511352539062);
+        assert_eq!(max_for_length(55), 138777878078144567552953958511352539062);
         assert_eq!(naive_num_bits(138777878078144567552953958511352539062), 127);
         assert_eq!(num_bits_for_pos(54), 127);
 
@@ -570,7 +570,7 @@ mod tests {
     /// of the specified length.
     fn max_for_length(len: u32) -> u128 {
         let mut sum: u128 = 0;
-        for n in 0..=len {
+        for n in 0..len {
             sum += 2 * 5_u128.pow(n);
         }
         sum
