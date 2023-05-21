@@ -603,4 +603,44 @@ mod tests {
         assert_eq!(12345_u128.into_snafu(), "1-0---0");
         assert_eq!(314159265_u128.into_snafu(), "1121-1110-1=0");
     }
+
+    #[test]
+    fn into_snafu_reference_works() {
+        assert_eq!(into_snafu_reference(1), "1");
+        assert_eq!(into_snafu_reference(2), "2");
+        assert_eq!(into_snafu_reference(3), "1=");
+        assert_eq!(into_snafu_reference(4), "1-");
+        assert_eq!(into_snafu_reference(5), "10");
+        assert_eq!(into_snafu_reference(6), "11");
+        assert_eq!(into_snafu_reference(7), "12");
+        assert_eq!(into_snafu_reference(8), "2=");
+        assert_eq!(into_snafu_reference(9), "2-");
+        assert_eq!(into_snafu_reference(10), "20");
+        assert_eq!(into_snafu_reference(11), "21");
+        assert_eq!(into_snafu_reference(12), "22");
+        assert_eq!(into_snafu_reference(15), "1=0");
+        assert_eq!(into_snafu_reference(20), "1-0");
+        assert_eq!(into_snafu_reference(976), "2=-01");
+        assert_eq!(into_snafu_reference(2022), "1=11-2");
+        assert_eq!(into_snafu_reference(12345), "1-0---0");
+        assert_eq!(into_snafu_reference(314159265), "1121-1110-1=0");
+    }
+
+    fn into_snafu_reference(mut value: u128) -> String {
+        let mut digits = Vec::default();
+
+        loop {
+            value += 2;
+            let selector = value % 5;
+            let digit = SYMBOLS[selector as usize];
+            digits.push(digit);
+
+            if value < 5 {
+                break;
+            }
+            value = value.div(5);
+        }
+
+        String::from_iter(digits.into_iter().rev())
+    }
 }
