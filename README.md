@@ -7,11 +7,12 @@ website is unavailable.
 
 ## SNAFU numbers
 
-SNAFU numbers are a base-5 system written right to left, where the first (i.e., right-most)
-place represents 5<sup>1</sup> = 5, the second place represents 5<sup>2</sup> = 25,
+SNAFU numbers are a power-of-5 centric base-10 system written right to left.
+The zero-th (i.e., right-most) place represents a multiple of 5<sup>0</sup> = 0, the first 
+represents a multiple 5<sup>1</sup> = 5, the second place 5<sup>2</sup> = 25,
 the third place 5<sup>3</sup> = 625, etc.
 
-These are the digits used, as well as their base-10 integer representation:
+Five different digits are used. Here is a list alongside their decimal integer representation:
 
 | SNAFU digit | Name         | Decimal / ℤ |
 |-------------|--------------|-------------|
@@ -20,6 +21,27 @@ These are the digits used, as well as their base-10 integer representation:
 | `0`         | zero         | `0`         |
 | `-`         | minus        | `-1`        |
 | `=`         | double-minus | `-2`        |
+
+As a result, the individual values in each position `n` is 2×5<sup>n-1</sup>, so
+
+| Position | Base                   | `=`     | `-`     | `0` | `1`    | `2`    |
+|----------|------------------------|---------|---------|-----|--------|--------|
+| 0        | 5<sup>0</sup> = `1`    | `-2`    | `1`     | `0` | `1`    | `2`    |
+| 1        | 5<sup>1</sup> = `5`    | `-10`   | `-5`    | `0` | `5`    | `10`   |
+| 2        | 5<sup>2</sup> = `25`   | `-50`   | `-25`   | `0` | `25`   | `50`   |
+| 3        | 5<sup>3</sup> = `125`  | `-250`  | `-125`  | `0` | `125`  | `250`  |
+| 4        | 5<sup>4</sup> = `625`  | `-1250` | `-625`  | `0` | `625`  | `1250` |
+| 5        | 5<sup>5</sup> = `3125` | `-6250` | `-3125` | `0` | `3125` | `6250` |
+
+etc.
+
+To quote the rules:
+
+> Say you have the SNAFU number `2=-01`. That's `2` in
+the 625s place, `=` (double-minus) in the 125s place, `-` (minus) in the 25s place,
+`0` in the 5s place, and 1 in the `1`s place.
+(2 times 625) plus (-2 times 125) plus (-1 times 25) plus (0 times 5) plus (1 times 1).
+That's 1250 plus -250 plus -25 plus 0 plus 1. **976**!"
 
 ### Example conversion from decimal to SNAFU
 

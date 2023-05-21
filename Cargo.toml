@@ -1,8 +1,12 @@
 [package]
 name = "snafu-numbers"
+description = "Special Numeral-Analogue Fuel Units"
+authors = ["Markus Mayer <widemeadows@gmail.com>"]
+keywords = ["snafu", "advent-of-code"]
+categories = ["mathematics", "parser-implementations"]
+license-file = "LICENSE.md"
 version = "0.1.0"
+repository = "https://github.com/sunsided/snafu-numbers"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
