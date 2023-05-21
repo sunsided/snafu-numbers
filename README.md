@@ -30,13 +30,15 @@ the third place 5<sup>3</sup> = 625, etc.
 
 Five different digits are used. Here is a list alongside their decimal integer representation:
 
-| SNAFU digit | Name         | Decimal / ℤ |
-|-------------|--------------|-------------|
-| `2`         | two          | `2`         |
-| `1`         | one          | `1`         |
-| `0`         | zero         | `0`         |
-| `-`         | minus        | `-1`        |
-| `=`         | double-minus | `-2`        |
+| SNAFU digit | Name         | Decimal / [ℤ] |
+|-------------|--------------|---------------|
+| `2`         | two          | `2`           |
+| `1`         | one          | `1`           |
+| `0`         | zero         | `0`           |
+| `-`         | minus        | `-1`          |
+| `=`         | double-minus | `-2`          |
+
+[ℤ]: https://en.wikipedia.org/wiki/Integer
 
 As a result, the individual values in each position `n` is 2×5<sup>n-1</sup>, so
 
