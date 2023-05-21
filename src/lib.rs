@@ -215,7 +215,8 @@ impl IntoSnafu for u128 {
 }
 
 /// Maps a SNAFU digit to a decimal digit.
-fn map_digit(digit: char) -> Result<i8, ConversionError> {
+#[inline(always)]
+const fn map_digit(digit: char) -> Result<i8, ConversionError> {
     match digit {
         '2' => Ok(2),
         '1' => Ok(1),
