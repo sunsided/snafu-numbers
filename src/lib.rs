@@ -209,17 +209,18 @@ where
     }
 }
 
+/// The symbol table used for converting a decimal to SNAFU.
+static SYMBOLS: &[char] = &['=', '-', '0', '1', '2'];
+
 impl IntoSnafu for u128 {
     fn into_snafu(mut self) -> String {
-        let symbol = ['=', '-', '0', '1', '2'];
-
         // TODO: Determine capacity
         let mut digits = Vec::default();
 
         loop {
             self += 2;
             let selector = self % 5;
-            let digit = symbol[selector as usize];
+            let digit = SYMBOLS[selector as usize];
             digits.push(digit);
 
             if self < 5 {
