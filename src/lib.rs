@@ -3,6 +3,8 @@
 //! A Rust crate and utility to deal with conversions of SNAFU values
 //! from Advent of Code 2022, Day 25 ([here](https://adventofcode.com/2022/day/25)).
 //!
+//! Conversion is implemented via the [`FromSnafu`]/[`TryFromSnafu`] and [`IntoSnafu`] traits.
+//!
 //! ## SNAFU numbers
 //!
 //! SNAFU numbers are a power-of-5 centric base-10 system written right to left.
@@ -706,6 +708,7 @@ mod tests {
         assert_eq!(into_snafu_reference(20), "1-0");
         assert_eq!(into_snafu_reference(976), "2=-01");
         assert_eq!(into_snafu_reference(2022), "1=11-2");
+        assert_eq!(into_snafu_reference(2023), "1=110=");
         assert_eq!(into_snafu_reference(12345), "1-0---0");
         assert_eq!(into_snafu_reference(314159265), "1121-1110-1=0");
     }

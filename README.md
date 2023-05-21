@@ -14,6 +14,13 @@ assert_eq!(u32::from_snafu("20012"), 1257);
 assert_eq!(u32::from_snafu("1="), 3);
 ```
 
+... and into SNAFU:
+
+```rust
+use snafu_numbers::IntoSnafu;
+assert_eq!(1747_u32.into_snafu(), "1=-0-2");
+```
+
 ## SNAFU numbers
 
 SNAFU numbers are a power-of-5 centric base-10 system written right to left.
