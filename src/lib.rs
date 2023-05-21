@@ -43,6 +43,13 @@
 //!
 //! ### Example conversion from decimal to SNAFU
 //!
+//! ```
+//! use snafu_numbers::IntoSnafu;
+//! assert_eq!(1747_u32.into_snafu(), "1=-0-2");
+//! assert_eq!(1257_u32.into_snafu(), "20012");
+//! assert_eq!(3_u32.into_snafu(), "1=");
+//! ```
+//!
 //! | Decimal     | SNAFU           |
 //! |-------------|-----------------|
 //! | `1`         | `1`             |
@@ -90,6 +97,7 @@ use std::error::Error;
 use std::fmt::{Display, Formatter};
 use std::ops::Div;
 
+/// Provides fallible conversion from SNAFU numbers.
 pub trait TryFromSnafu: Sized {
     /// Converts a string from SNAFU numbers into decimal.
     /// Returns an error if the conversion failed.
@@ -105,6 +113,7 @@ pub trait TryFromSnafu: Sized {
     fn try_from_snafu(value: &str) -> Result<Self, ConversionError>;
 }
 
+/// Provides conversion from SNAFU numbers.
 pub trait FromSnafu {
     /// Converts a string from SNAFU numbers into decimal.
     ///
@@ -123,7 +132,21 @@ pub trait FromSnafu {
     fn from_snafu(value: &str) -> Self;
 }
 
-trait IntoSnafu {
+/// Provides conversion into SNAFU numbers.
+pub trait IntoSnafu {
+    /// Converts a number from decimal into SNAFU.
+    ///
+    /// ## Arguments
+    /// * `self` - The value to convert.
+    ///
+    /// ## Returns
+    /// A string representing the SNAFU value.
+    ///
+    /// ## Example
+    /// ```
+    /// use snafu_numbers::IntoSnafu;
+    /// assert_eq!(1747_u32.into_snafu(), "1=-0-2");
+    /// ```
     fn into_snafu(self) -> String;
 }
 
@@ -212,26 +235,47 @@ where
 /// The symbol table used for converting a decimal to SNAFU.
 static SYMBOLS: &[char] = &['=', '-', '0', '1', '2'];
 
-impl IntoSnafu for u128 {
-    fn into_snafu(mut self) -> String {
-        // TODO: Determine capacity
-        let mut digits = Vec::default();
+/// Implements [`IntoSnafu`] for the given target type.
+///
+/// ## Macro Arguments
+/// * `target` - The type for which to implement [`IntoSnafu`].
+macro_rules! impl_into {
+    ($target:ty) => {
+        impl IntoSnafu for $target {
+            fn into_snafu(mut self) -> String {
+                // TODO: Determine capacity
+                let mut digits = Vec::default();
 
-        loop {
-            self += 2;
-            let selector = self % 5;
-            let digit = SYMBOLS[selector as usize];
-            digits.push(digit);
+                loop {
+                    self += 2;
+                    let selector = self % 5;
+                    let digit = SYMBOLS[selector as usize];
+                    digits.push(digit);
 
-            if self < 5 {
-                break;
+                    if self < 5 {
+                        break;
+                    }
+                    self = self.div(5);
+                }
+
+                String::from_iter(digits.into_iter().rev())
             }
-            self = self.div(5);
         }
-
-        String::from_iter(digits.into_iter().rev())
-    }
+    };
 }
+
+impl_into!(usize);
+impl_into!(isize);
+impl_into!(u128);
+impl_into!(i128);
+impl_into!(u64);
+impl_into!(i64);
+impl_into!(u32);
+impl_into!(i32);
+impl_into!(u16);
+impl_into!(i16);
+impl_into!(u8);
+impl_into!(i8);
 
 /// Maps a SNAFU digit to a decimal digit.
 #[inline(always)]
@@ -602,6 +646,46 @@ mod tests {
         assert_eq!(2022_u128.into_snafu(), "1=11-2");
         assert_eq!(12345_u128.into_snafu(), "1-0---0");
         assert_eq!(314159265_u128.into_snafu(), "1121-1110-1=0");
+    }
+
+    #[test]
+    fn i32_into_snafu() {
+        assert_eq!(1_i32.into_snafu(), "1");
+        assert_eq!(2_i32.into_snafu(), "2");
+        assert_eq!(3_i32.into_snafu(), "1=");
+        assert_eq!(4_i32.into_snafu(), "1-");
+        assert_eq!(5_i32.into_snafu(), "10");
+        assert_eq!(6_i32.into_snafu(), "11");
+        assert_eq!(7_i32.into_snafu(), "12");
+        assert_eq!(8_i32.into_snafu(), "2=");
+        assert_eq!(9_i32.into_snafu(), "2-");
+        assert_eq!(10_i32.into_snafu(), "20");
+        assert_eq!(11_i32.into_snafu(), "21");
+        assert_eq!(12_i32.into_snafu(), "22");
+        assert_eq!(15_i32.into_snafu(), "1=0");
+        assert_eq!(20_i32.into_snafu(), "1-0");
+        assert_eq!(976_i32.into_snafu(), "2=-01");
+        assert_eq!(2022_i32.into_snafu(), "1=11-2");
+        assert_eq!(12345_i32.into_snafu(), "1-0---0");
+        assert_eq!(314159265_i32.into_snafu(), "1121-1110-1=0");
+    }
+
+    #[test]
+    fn i8_into_snafu() {
+        assert_eq!(1_i8.into_snafu(), "1");
+        assert_eq!(2_i8.into_snafu(), "2");
+        assert_eq!(3_i8.into_snafu(), "1=");
+        assert_eq!(4_i8.into_snafu(), "1-");
+        assert_eq!(5_i8.into_snafu(), "10");
+        assert_eq!(6_i8.into_snafu(), "11");
+        assert_eq!(7_i8.into_snafu(), "12");
+        assert_eq!(8_i8.into_snafu(), "2=");
+        assert_eq!(9_i8.into_snafu(), "2-");
+        assert_eq!(10_i8.into_snafu(), "20");
+        assert_eq!(11_i8.into_snafu(), "21");
+        assert_eq!(12_i8.into_snafu(), "22");
+        assert_eq!(15_i8.into_snafu(), "1=0");
+        assert_eq!(20_i8.into_snafu(), "1-0");
     }
 
     #[test]
