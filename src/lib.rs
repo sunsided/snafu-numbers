@@ -670,6 +670,10 @@ mod tests {
         assert_eq!(2022_i32.into_snafu(), "1=11-2");
         assert_eq!(12345_i32.into_snafu(), "1-0---0");
         assert_eq!(314159265_i32.into_snafu(), "1121-1110-1=0");
+
+        // Some year numbers to play with.
+        assert_eq!(2022.into_snafu(), "1=11-2");
+        assert_eq!(2023.into_snafu(), "1=110=");
     }
 
     #[test]
